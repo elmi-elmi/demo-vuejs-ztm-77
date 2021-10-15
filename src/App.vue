@@ -1,20 +1,19 @@
 <template>
   <div class="ctr">
-    <questions
-      :questions="questions"
-      :questionNumber="questionsAnswered"
-      v-if="questionsAnswered < questions.length"
-      @selected-answer="checkAnswer"
-    ></questions>
-    <results v-else :totalCorrect="totalCorrect" :results="results"></results>
-    <button
-      type="button"
-      class="reset-btn"
-      v-show="questionsAnswered == questions.length"
-      @click="reset"
-    >
-      Reset
-    </button>
+    <transition-group name="fade" mode="out-in">
+      <questions
+        :questions="questions"
+        :questionNumber="questionsAnswered"
+        v-if="questionsAnswered < questions.length"
+        @selected-answer="checkAnswer"
+      ></questions>
+      <div v-else>
+        <results :totalCorrect="totalCorrect" :results="results"></results>
+        <button type="button" class="reset-btn" @click.prevent="reset">
+          Reset
+        </button>
+      </div>
+    </transition-group>
   </div>
 </template>
 
@@ -114,7 +113,6 @@ export default {
       if (is_correct) {
         this.totalCorrect++;
       }
-      console.log(this.totalCorrect);
     },
   },
 };

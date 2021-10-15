@@ -10,25 +10,27 @@
         answered
       </div>
     </div>
-    <div
-      class="single-question"
-      v-for="(question, indx) in questions"
-      :key="question.q"
-      v-show="indx == questionNumber"
-    >
-      <div class="question">
-        {{ question.q }}
-      </div>
+    <transition-group name="fade">
       <div
-        class="answers"
-        v-for="answer in question.answers"
-        :key="answer.text"
+        class="single-question"
+        v-for="(question, indx) in questions"
+        :key="question.q"
+        v-show="indx == questionNumber"
       >
-        <div class="answer" @click="selectedAnswer(answer.is_correct)">
-          {{ answer.text }}
+        <div class="question">
+          {{ question.q }}
+        </div>
+        <div
+          class="answers"
+          v-for="answer in question.answers"
+          :key="answer.text"
+        >
+          <div class="answer" @click="selectedAnswer(answer.is_correct)">
+            {{ answer.text }}
+          </div>
         </div>
       </div>
-    </div>
+    </transition-group>
   </div>
 </template>
 
@@ -39,7 +41,6 @@ export default {
   methods: {
     selectedAnswer(is_correct) {
       this.$emit('selected-answer', is_correct);
-      console.log('----------');
     },
   },
 };
