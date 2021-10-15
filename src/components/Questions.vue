@@ -1,9 +1,13 @@
 <template>
   <div class="questions-ctr">
     <div class="progress">
-      <div class="bar"></div>
+      <div
+        class="bar"
+        :style="{ width: `${(questionNumber / questions.length) * 100}%` }"
+      ></div>
       <div class="status">
-        {{ +questionNumber + 1 }} out of 3 questions answered
+        {{ +questionNumber + 1 }} out of {{ questions.length }} questions
+        answered
       </div>
     </div>
     <div
@@ -35,6 +39,7 @@ export default {
   methods: {
     selectedAnswer(is_correct) {
       this.$emit('selected-answer', is_correct);
+      console.log('----------');
     },
   },
 };

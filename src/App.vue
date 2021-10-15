@@ -6,7 +6,7 @@
       v-if="questionsAnswered < questions.length"
       @selected-answer="checkAnswer"
     ></questions>
-    <results v-else></results>
+    <results v-else :totalCorrect="totalCorrect"></results>
   </div>
 </template>
 
@@ -17,6 +17,7 @@ export default {
   components: { Questions, Results },
   data() {
     return {
+      totalCorrect: 0,
       questionsAnswered: 0,
       questions: [
         {
@@ -98,7 +99,10 @@ export default {
   methods: {
     checkAnswer(is_correct) {
       this.questionsAnswered++;
-      console.log(is_correct);
+      if (is_correct) {
+        this.totalCorrect++;
+      }
+      console.log(this.totalCorrect);
     },
   },
 };

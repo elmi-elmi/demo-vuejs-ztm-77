@@ -1,6 +1,6 @@
 <template>
   <div class="result">
-    <div class="title">You got sample result 1!</div>
+    <div class="title">You got sample result {{ totalCorrect }}!</div>
     <div class="desc">
       Enter a short description here about the result.
     </div>
@@ -9,7 +9,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: ['totalCorrect'],
+};
 </script>
 
 <style></style>
