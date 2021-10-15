@@ -1,16 +1,29 @@
 <template>
   <div class="result">
-    <div class="title">You got sample result {{ totalCorrect }}!</div>
+    <div class="title">{{ results[index].title }}</div>
     <div class="desc">
-      Enter a short description here about the result.
+      {{ results[index].desc }}
     </div>
   </div>
-  <button type="button" class="reset-btn">Reset</button>
 </template>
 
 <script>
 export default {
-  props: ['totalCorrect'],
+  props: ['totalCorrect', 'results'],
+  computed: {
+    index() {
+      let index = 0;
+      this.results.forEach((result, idx) => {
+        if (
+          this.totalCorrect >= result.min &&
+          this.totalCorrect <= result.max
+        ) {
+          index = idx;
+        }
+      });
+      return index;
+    },
+  },
 };
 </script>
 
