@@ -2,12 +2,15 @@
   <div class="questions-ctr">
     <div class="progress">
       <div class="bar"></div>
-      <div class="status">1 out of 3 questions answered</div>
+      <div class="status">
+        {{ +questionNumber + 1 }} out of 3 questions answered
+      </div>
     </div>
     <div
       class="single-question"
-      v-for="question in questions"
+      v-for="(question, indx) in questions"
       :key="question.q"
+      v-show="indx == questionNumber"
     >
       <div class="question">
         {{ question.q }}
@@ -17,7 +20,9 @@
         v-for="answer in question.answers"
         :key="answer.text"
       >
-        <div class="answer">{{ answer.text }}</div>
+        <div class="answer" @click="selectedAnswer(answer.is_correct)">
+          {{ answer.text }}
+        </div>
       </div>
     </div>
   </div>
@@ -25,7 +30,13 @@
 
 <script>
 export default {
-  props: ['questions'],
+  props: ['questions', 'questionNumber'],
+  emits: ['selected-answer'],
+  methods: {
+    selectedAnswer(is_correct) {
+      this.$emit('selected-answer', is_correct);
+    },
+  },
 };
 </script>
 

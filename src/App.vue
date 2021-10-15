@@ -2,7 +2,9 @@
   <div class="ctr">
     <questions
       :questions="questions"
+      :questionNumber="questionsAnswered"
       v-if="questionsAnswered < questions.length"
+      @selected-answer="checkAnswer"
     ></questions>
     <results v-else></results>
   </div>
@@ -92,6 +94,12 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    checkAnswer(is_correct) {
+      this.questionsAnswered++;
+      console.log(is_correct);
+    },
   },
 };
 </script>
